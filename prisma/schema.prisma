@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model roles {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  usuarios  usuarios[]
+}
+
+model usuarios {
+  id                Int      @id @default(autoincrement())
+  nombre            String    
+  apellidoP         String
+  apellidoM         String
+  fechaNacimiento   DateTime
+  email             String
+  rut               String
+  telefono          String
+  contraHash        String
+  fechaCreacion     DateTime @default(now())
+  idRol             Int
+  roles             roles @relation(fields : [idRol], references: [id])
+}
+
+model proveedores {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  direccion         String
+  telefono          String
+  email             String
+  paginaWeb         String? @default(dbgenerated())
+  cuentaBancaria    String
+  productos         productos[]
+}
+
+model marcas {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  productos         productos[]
+}
+
+model sucursales {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  direccion         String
+  telefono          String
+  email             String
+  fechaApertura     DateTime
+  horaApertura      DateTime
+  horaCierre        DateTime
+  productos         productos[]
+}
+
+model categoriasPadres {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  categoriasHijas   categoriasHijas[]
+}
+
+model categoriasHijas {
+  id                Int      @id @default(autoincrement())
+  idCategoriaPadre  Int
+  nombre            String
+  categorias        categorias[]
+  categoriasPadres  categoriasPadres @relation(fields : [idCategoriaPadre], references: [id])
+}
+
+model categorias {
+  id                Int      @id @default(autoincrement())
+  idCategoriaHija   Int
+  nombre            String
+  productos         productos[]
+  categoriasHijas   categoriasHijas @relation(fields : [idCategoriaHija], references: [id])
+}
+
+model colores {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  productos         productos[]
+}
+
+model productos {
+  id                      Int      @id @default(autoincrement())
+  idProveedor             Int
+  idMarca                 Int
+  idSucursal              Int
+  idCategoria             Int
+  idColor                 Int
+  nombre                  String
+  descripcion             String
+  altoCm                  Float
+  anchoCm                 Float
+  descuento               Int
+  calificacion            Float @default(0)
+  cantidadCalificaciones  Int
+  cantidad                Int
+  portada                 String
+  fechaCreacion           DateTime @default(now())
+  precio                  Int
+  proveedores             proveedores @relation(fields : [idProveedor], references: [id])
+  marcas                  marcas @relation(fields : [idMarca], references: [id])
+  sucursales              sucursales @relation(fields : [idSucursal], references: [id])
+  categorias              categorias @relation(fields : [idCategoria], references: [id])
+  colores                 colores @relation(fields : [idColor], references: [id])
+}
