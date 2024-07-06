@@ -322,6 +322,8 @@ const InputForm = ({ id, text, type, handleChange, isError, errorMessage, errorF
         <input
           onChange={ handleChange }
           type={type}
+          min={"1900-01-01"}
+          max={"2023-12-31"}
           id={ id }
           name={ id }
           className={`py-1.5 rounded-lg outline-none w-full`}
