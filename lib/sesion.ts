@@ -1,7 +1,7 @@
 
 export const obtenerSesion = async () => {
   try {
-    const res = await fetch("/api/auth/login")
+    const res = await fetch("http://localhost:3000/api/auth/login")
     const { usuario } = await res.json()
     
 
@@ -21,7 +21,7 @@ export const obtenerSesion = async () => {
 
 export const cerrarSesion = async () => {
   try {
-    const res = await fetch("/api/auth/logout", {
+    const res = await fetch("http://localhost:3000/api/auth/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
