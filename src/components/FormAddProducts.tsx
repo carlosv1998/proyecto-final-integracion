@@ -110,7 +110,7 @@ export const FormAddProducts = ({ producto, method, proveedores, marcas, sucursa
       cantidadCalificaciones: producto?.cantidadCalificaciones || 0
     };
 
-    const res = await (fetch("/api/products", {
+    const res = await (fetch("http://localhost:3000/api/products", {
       method: method,
       body: JSON.stringify(completeData),
       headers: {

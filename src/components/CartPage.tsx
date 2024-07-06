@@ -10,9 +10,6 @@ import { useUsuario } from "@/hooks/useUsuario"
 export const CartPage = () => {
   const { cart, setCart } = useCart()
   const { dataUsuario } = useUsuario()
-
-  console.log(cart)
-
   return (
     <div className="w-full h-full flex flex-col gap-2 justify-center">
       <h1 className="font-bold">Carro {"de " +dataUsuario?.correo}</h1>

@@ -151,7 +151,7 @@ export const RegisterForm = () => {
           newErrors.correo = formData[4].errorMessage.invalid;
           setIsError({ ...isError, correo: true });
         }else if (value.trim().length > 6){
-          fetch("/api/auth/users?correo=" + value.trim())
+          fetch("http://localhost:3000/api/auth/users?correo=" + value.trim())
           .then(res => {
             if (!res.ok){
               newErrors.correo = formData[4].errorMessage.existe;
@@ -247,7 +247,7 @@ export const RegisterForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validForm){
-      fetch("/api/auth/register", {
+      fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
